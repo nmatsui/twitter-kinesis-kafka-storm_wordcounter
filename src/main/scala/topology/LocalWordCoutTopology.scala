@@ -7,7 +7,7 @@ import backtype.storm.tuple.Fields
 import jp.co.tis.stc.example.spout.RandomSentenceSpout
 import jp.co.tis.stc.example.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
 
-object WordCountTopology {
+object LocalWordCountTopology {
   def main(args:Array[String]) {
 
     val builder = new TopologyBuilder()
