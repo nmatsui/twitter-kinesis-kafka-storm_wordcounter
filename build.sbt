@@ -15,7 +15,8 @@ resolvers ++=Seq(
 
 libraryDependencies ++= Seq(
   "org.apache.storm" % "storm-core" % "0.9.2-incubating",
-  "org.atilika.kuromoji" % "kuromoji" % "0.7.7"
+  "org.atilika.kuromoji" % "kuromoji" % "0.7.7",
+  "net.debasishg" % "redisclient_2.10" % "2.12"
 )
 
 mainClass in (Compile, run) := Some("jp.co.tis.stc.example.topology.WordCountTopology")

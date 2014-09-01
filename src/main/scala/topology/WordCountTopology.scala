@@ -4,10 +4,11 @@ import backtype.storm.{ Config, LocalCluster }
 import backtype.storm.topology.TopologyBuilder
 import backtype.storm.tuple.Fields
 
+import jp.co.tis.stc.example.spout.RandomSentenceSpout
+import jp.co.tis.stc.example.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
+
 object WordCountTopology {
   def main(args:Array[String]) {
-    import jp.co.tis.stc.example.spout.RandomSentenceSpout
-    import jp.co.tis.stc.example.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
 
     val builder = new TopologyBuilder()
     builder.setSpout("spout", new RandomSentenceSpout())
@@ -15,7 +16,7 @@ object WordCountTopology {
     builder.setBolt("count", new WordCountBolt()).fieldsGrouping("split", new Fields("word"))
 
     val config = new Config()
-    config.setDebug(false)
+    config.setDebug(true)
     config.setMaxTaskParallelism(2)
 
     val cluster = new LocalCluster()
