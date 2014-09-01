@@ -8,13 +8,13 @@ import backtype.storm.tuple.Fields
 object WordCountTopology {
   def main(args:Array[String]) {
     import jp.co.tis.stc.example.spout.RandomSentenceSpout
-    //import jp.co.tis.stc.example.bolt.{ SplitSentenceBolt, WordCountBolt }
-    import jp.co.tis.stc.example.bolt.SplitSentenceBolt
+    import jp.co.tis.stc.example.bolt.{ SplitSentenceBolt, WordCountBolt }
+    //import jp.co.tis.stc.example.bolt.SplitSentenceBolt
 
     val builder = new TopologyBuilder()
     builder.setSpout("spout", new RandomSentenceSpout())
     builder.setBolt("split", new SplitSentenceBolt()).shuffleGrouping("spout")
-    //builder.setBolt("count", new WordCountBolt()).fieldGrouping("split", new Fields("word"))
+    builder.setBolt("count", new WordCountBolt()).fieldsGrouping("split", new Fields("word"))
 
     val config = new Config()
     config.setDebug(false)
