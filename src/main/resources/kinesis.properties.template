@@ -1,5 +1,7 @@
 kinesis.streamName=tweets
 
+storm.zkHosts=zookeeper:2181
+
 http.proxyHost=
 http.proxyPort=
 http.proxyUser=
