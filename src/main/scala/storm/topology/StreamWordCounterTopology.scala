@@ -4,7 +4,7 @@ import backtype.storm.{ Config, LocalCluster }
 import backtype.storm.topology.TopologyBuilder
 import backtype.storm.tuple.Fields
 
-import jp.co.tis.stc.example.storm.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
+import jp.co.tis.stc.example.storm.bolt.{ KinesisDecodeBolt, MorphologicalAnalysisBolt, WordCountBolt }
 import jp.co.tis.stc.example.storm.spout.StreamSpoutFactory
 
 object StreamWordCounterTopology {
@@ -13,7 +13,8 @@ object StreamWordCounterTopology {
 
     val builder = new TopologyBuilder()
     builder.setSpout("spout", spout)
-    builder.setBolt("split", new MorphologicalAnalysisBolt()).shuffleGrouping("spout")
+    builder.setBolt("decode", new KinesisDecodeBolt()).shuffleGrouping("spout")
+    builder.setBolt("split", new MorphologicalAnalysisBolt()).shuffleGrouping("decode")
     builder.setBolt("count", new WordCountBolt()).fieldsGrouping("split", new Fields("word"))
 
     val config = new Config()

@@ -1,0 +1,6 @@
+kinesis.streamName=tweets
+
+http.proxyHost=
+http.proxyPort=
+http.proxyUser=
+http.proxyPassword=

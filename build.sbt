@@ -21,7 +21,11 @@ libraryDependencies ++= Seq(
     exclude("org.apache.zookeeper", "zookeeper")
     exclude("log4j", "log4j"),
   "org.atilika.kuromoji" % "kuromoji" % "0.7.7",
-  "net.debasishg" % "redisclient_2.10" % "2.12"
+  "net.debasishg" % "redisclient_2.10" % "2.12",
+  "com.amazonaws" % "aws-java-sdk" % "1.8.9.1",
+  "org.apache.commons" % "commons-lang3" % "3.3.2",
+  "com.google.guava" % "guava" % "18.0",
+  "com.netflix.curator" % "curator-framework" % "1.3.3"
 )
 
 mainClass in (Compile, run) := Some("jp.co.tis.stc.example.storm.topology.StreamWordCounterTopology")
