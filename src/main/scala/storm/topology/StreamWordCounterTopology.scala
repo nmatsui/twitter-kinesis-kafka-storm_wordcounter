@@ -4,10 +4,6 @@ import backtype.storm.{ Config, LocalCluster }
 import backtype.storm.topology.TopologyBuilder
 import backtype.storm.tuple.Fields
 
-import backtype.storm.spout.SchemeAsMultiScheme
-
-import storm.kafka.{ KafkaSpout, SpoutConfig, ZkHosts, StringScheme }
-
 import jp.co.tis.stc.example.storm.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
 import jp.co.tis.stc.example.storm.spout.StreamSpoutFactory
 
