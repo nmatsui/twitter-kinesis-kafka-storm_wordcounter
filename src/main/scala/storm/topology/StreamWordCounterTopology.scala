@@ -1,17 +1,22 @@
-package jp.co.tis.stc.example.topology
+package jp.co.tis.stc.example.storm.topology
 
 import backtype.storm.{ Config, LocalCluster }
 import backtype.storm.topology.TopologyBuilder
 import backtype.storm.tuple.Fields
 
-import jp.co.tis.stc.example.spout.RandomSentenceSpout
-import jp.co.tis.stc.example.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
+import backtype.storm.spout.SchemeAsMultiScheme
 
-object LocalWordCountTopology {
+import storm.kafka.{ KafkaSpout, SpoutConfig, ZkHosts, StringScheme }
+
+import jp.co.tis.stc.example.storm.bolt.{ MorphologicalAnalysisBolt, WordCountBolt }
+import jp.co.tis.stc.example.storm.spout.StreamSpoutFactory
+
+object StreamWordCounterTopology {
   def main(args:Array[String]) {
+    val spout = StreamSpoutFactory.getInstance(args(0))
 
     val builder = new TopologyBuilder()
-    builder.setSpout("spout", new RandomSentenceSpout())
+    builder.setSpout("spout", spout)
     builder.setBolt("split", new MorphologicalAnalysisBolt()).shuffleGrouping("spout")
     builder.setBolt("count", new WordCountBolt()).fieldsGrouping("split", new Fields("word"))
 

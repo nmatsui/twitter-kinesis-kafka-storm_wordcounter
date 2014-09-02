@@ -1,4 +1,4 @@
-package jp.co.tis.stc.example.bolt
+package jp.co.tis.stc.example.storm.bolt
 
 import backtype.storm.task.{ OutputCollector, TopologyContext }
 import backtype.storm.topology.OutputFieldsDeclarer

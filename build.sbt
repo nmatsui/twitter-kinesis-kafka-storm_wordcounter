@@ -24,6 +24,5 @@ libraryDependencies ++= Seq(
   "net.debasishg" % "redisclient_2.10" % "2.12"
 )
 
-//mainClass in (Compile, run) := Some("jp.co.tis.stc.example.topology.LocalWordCountTopology")
-mainClass in (Compile, run) := Some("jp.co.tis.stc.example.topology.KafkaWordCountTopology")
+mainClass in (Compile, run) := Some("jp.co.tis.stc.example.storm.topology.StreamWordCounterTopology")
 

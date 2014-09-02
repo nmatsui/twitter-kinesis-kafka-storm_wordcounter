@@ -1,4 +1,4 @@
-package jp.co.tis.stc.example.spout
+package jp.co.tis.stc.example.storm.spout
 
 import backtype.storm.spout.SpoutOutputCollector
 import backtype.storm.task.TopologyContext
