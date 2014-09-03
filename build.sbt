@@ -28,6 +28,5 @@ lazy val root = project.in(file(".")).dependsOn(kinesisStromSpout)
 
 lazy val kinesisStromSpout = uri("https://github.com/nmatsui/kinesis-storm-spout.git#develop")
 
-
 mainClass in (Compile, run) := Some("jp.co.tis.stc.example.storm.topology.StreamWordCounterTopology")
 
