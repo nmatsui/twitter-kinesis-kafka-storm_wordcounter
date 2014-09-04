@@ -32,10 +32,10 @@ object StreamSpoutFactory {
       val conf = prop.asScala
 
       val clientConfig = new ClientConfiguration()
-      conf.get("http.proxyHost").map(k=>clientConfig.setProxyHost(k))
-      conf.get("http.proxyPort").map(k=>clientConfig.setProxyPort(k.toInt))
-      conf.get("http.proxyUser").map(k=>clientConfig.setProxyUsername(k))
-      conf.get("http.proxyPassword").map(k=>clientConfig.setProxyPassword(k))
+      conf.get("http.proxyHost").filter(_.nonEmpty).map(v=>clientConfig.setProxyHost(v))
+      conf.get("http.proxyPort").filter(_.nonEmpty).map(v=>clientConfig.setProxyPort(v.toInt))
+      conf.get("http.proxyUser").filter(_.nonEmpty).map(v=>clientConfig.setProxyUsername(v))
+      conf.get("http.proxyPassword").filter(_.nonEmpty).map(v=>clientConfig.setProxyPassword(v))
 
       val kinesisSpoutConfig = new KinesisSpoutConfig(conf("kinesis.streamName"), conf("storm.zkHosts"))
       new KinesisSpout(kinesisSpoutConfig, new ClasspathPropertiesFileCredentialsProvider(), clientConfig)
