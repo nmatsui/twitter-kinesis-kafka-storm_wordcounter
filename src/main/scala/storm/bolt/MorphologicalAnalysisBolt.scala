@@ -24,7 +24,7 @@ class MorphologicalAnalysisBolt extends BaseRichBolt {
     tokenizer.tokenize(tweet).asScala.toList
       .filter(token => List("名詞", "動詞", "形容詞").contains(token.getPartOfSpeech.split(",")(0)))
       .map(token => if (token.isKnown) token.getBaseForm else token.getSurfaceForm)
-      .filter(word => word.length >= 5)
+      .filter(_.matches("^[^ -~｡-ﾟ]*$"))
       .map(word => this.collector.emit(tuple, new Values(word)))
     this.collector.ack(tuple)
   }
