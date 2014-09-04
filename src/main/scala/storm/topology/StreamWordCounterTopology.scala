@@ -9,7 +9,11 @@ import jp.co.tis.stc.example.storm.spout.StreamSpoutFactory
 
 object StreamWordCounterTopology {
   def main(args:Array[String]) {
-    val spout = StreamSpoutFactory.getInstance(args(0))
+    if (args.length < 1) {
+      println("Usage: java -jar wordcounter.jar (TEST|KAFKA|KINESIS)")
+      sys.exit(1)
+    }
+    val spout = StreamSpoutFactory.getInstance(args.head)
 
     val builder = new TopologyBuilder()
     builder.setSpout("spout", spout)
