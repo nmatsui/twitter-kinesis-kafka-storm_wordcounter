@@ -8,6 +8,6 @@ trait PropertyLoader {
   def loadProperties(filename:String):Map[String, String] = {
     val prop = new Properties()
     prop.load(this.getClass.getClassLoader.getResourceAsStream(filename))
-    prop.asScala
+    Map(prop.asScala.toSeq:_*)
   }
 }
