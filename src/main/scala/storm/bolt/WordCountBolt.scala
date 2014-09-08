@@ -9,13 +9,16 @@ import com.redis._
 
 import java.util.{ Map => JMap }
 
-class WordCountBolt extends BaseRichBolt {
+import jp.co.tis.stc.example.util.PropertyLoader
+
+class WordCountBolt extends BaseRichBolt with PropertyLoader {
   private var collector:OutputCollector = _
   private var redis:RedisClient = _
 
   override def prepare(config:JMap[_, _], context:TopologyContext, collector:OutputCollector) {
     this.collector = collector
-    this.redis = new RedisClient("localhost", 6379)
+    val redisConf = loadProperties("redis.properties")
+    this.redis = new RedisClient(redisConf("redis.host"), redisConf("redis.port").toInt)
   }
   override def execute(tuple:Tuple) {
     this.redis.zincrby("words", 1, tuple.getString(0))
